@@ -1,0 +1,75 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=0">
+        
+        <script type="text/javascript" src="jquery-1.11.3.min.js"></script>
+        <style>
+        .xiumi-scrollable {
+          -webkit-overflow-scrolling: touch;
+            overflow-y: scroll;
+            overflow-x: hidden;
+            height: 400px;
+            padding: 0;
+            margin: 0;
+            position:relative;
+            
+        }
+        
+        .xiumi-scrollable iframe {
+          width: 100%;          
+          border: none;
+          padding: 0;
+          margin: 0;
+          height: 2000px;  /* 这里应该根据iframe的内容计算出来 */
+        }
+        </style>
+    </head>
+    <body>
+        <!--[if lt IE 8]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+        <!-- Add your site or application content here -->
+        <h2>Iframe滚动触碰边缘测试</h2>
+        
+        <p>检测iframe里面的内容滚动到达边界的时候，应该能够向父窗口发送消息。用于将金数据表单嵌入到类似于秀米的H5平台中</p>
+        
+        <p>请在Android/iPhone浏览器中打开这个网页。</p>
+        
+        <p id="pos_container"></p>
+        
+        <div class="xiumi-scrollable">
+          <iframe src="iframe.html"></iframe>
+        </div>
+        
+        <p style="border-top: 2px solid #333">iframe滚动完成，你就应该看见这个了。</p>
+        
+        <script>
+        
+        $(document).ready(function() {
+          
+          $(".xiumi-scrollable").scroll(function() {
+            scrollTop = $(this).scrollTop();
+            scrollHeight = $(this)[0].scrollHeight;
+            height = $(this).height();
+            text = "scroll: " + scrollTop + "/" + scrollHeight
+            if (scrollTop <= 0) {
+              text += ", TOP HIT!";
+            }
+            if (scrollTop+height >= scrollHeight) {
+              text += ", BOTTOM HIT!";
+            }
+            $("#pos_container").text(text);
+          })
+        })
+        
+        
+      
+        </script>
+    </body>
+</html>
